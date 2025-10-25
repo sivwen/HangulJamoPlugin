@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:label="FlorisBoard 한글 자모 플러그인"
+        android:icon="@mipmap/ic_launcher"
+        android:theme="@style/Theme.AppCompat.Light">
+        
+        <!-- ContentProvider로 플러그인 노출 -->
+        <provider
+            android:name=".HangulJamoProvider"
+            android:authorities="com.florisboard.plugin.hangul.provider"
+            android:exported="true">
+            
+            <!-- 플러그인 메타데이터 -->
+            <meta-data
+                android:name="florisboard.plugin.type"
+                android:value="hangul_jamo_backspace" />
+            <meta-data
+                android:name="florisboard.plugin.version"
+                android:value="1.0.0" />
+        </provider>
+        
+        <!-- 설정 Activity (선택사항) -->
+        <activity
+            android:name=".PluginSettingsActivity"
+            android:exported="true"
+            android:label="한글 자모 플러그인 설정">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
