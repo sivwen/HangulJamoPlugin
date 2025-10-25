@@ -30,11 +30,22 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '17'
-          cache: 'gradle'
       
-      - name: Grant execute permission for gradlew
+      # Gradle 직접 설치 (Wrapper 없이)
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: 8.1
+      
+      # Gradle Wrapper 생성
+      - name: Generate Gradle Wrapper
+        run: gradle wrapper
+      
+      # 실행 권한 부여
+      - name: Make gradlew executable
         run: chmod +x gradlew
       
+      # Gradle 캐시
       - name: Cache Gradle packages
         uses: actions/cache@v3
         with:
@@ -46,22 +57,32 @@ jobs:
             ${{ runner.os }}-gradle-
       
       - name: Build Debug APK
-        run: ./gradlew assembleDebug
+        run: ./gradlew assembleDebug --stacktrace
       
       - name: Build Release APK
-        run: ./gradlew assembleRelease
+        run: ./gradlew assembleRelease --stacktrace
+      
+      - name: List build outputs
+        run: |
+          echo "Debug APK:"
+          ls -lh ${{ env.main_project_module }}/build/outputs/apk/debug/ || echo "No debug APK found"
+          echo ""
+          echo "Release APK:"
+          ls -lh ${{ env.main_project_module }}/build/outputs/apk/release/ || echo "No release APK found"
       
       - name: Upload Debug APK to Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.date_today }} - ${{ env.app_name }} - Debug APK
           path: ${{ env.main_project_module }}/build/outputs/apk/debug/*.apk
+        continue-on-error: true
       
       - name: Upload Release APK to Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.date_today }} - ${{ env.app_name }} - Release APK
           path: ${{ env.main_project_module }}/build/outputs/apk/release/*.apk
+        continue-on-error: true
       
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
@@ -72,5 +93,23 @@ jobs:
           files: |
             ${{ env.main_project_module }}/build/outputs/apk/debug/*.apk
             ${{ env.main_project_module }}/build/outputs/apk/release/*.apk
+          body: |
+            ## FlorisBoard 한글 자모 플러그인 ${{ github.ref_name }}
+            
+            ### 다운로드
+            - **Debug APK**: 테스트용 (서명 자동)
+            - **Release APK**: 배포용
+            
+            ### 설치 방법
+            1. APK 파일 다운로드
+            2. 안드로이드 기기로 전송
+            3. "알 수 없는 출처" 허용 후 설치
+            4. FlorisBoard 재시작
+            
+            ### 주요 기능
+            - 한글 자모 단위 백스페이스 삭제
+            - FlorisBoard와 ContentProvider로 연동
+            - 플러그인 방식으로 독립 설치
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
