@@ -32,12 +32,24 @@ jobs:
           java-version: '17'
           cache: 'gradle'
       
-      # gradlew 파일 존재 확인
-      - name: Verify gradlew exists
+      # gradle-wrapper.jar 다운로드 (Gradle 9.2 버전)
+      - name: Download gradle-wrapper.jar if missing
         run: |
-          echo "Checking for gradlew file..."
-          ls -la gradlew || echo "gradlew not found"
-          ls -la gradlew.bat || echo "gradlew.bat not found"
+          if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
+            echo "gradle-wrapper.jar is missing, downloading for Gradle 9.2..."
+            mkdir -p gradle/wrapper
+            curl -L https://raw.githubusercontent.com/gradle/gradle/v9.2.0/gradle/wrapper/gradle-wrapper.jar \
+              -o gradle/wrapper/gradle-wrapper.jar
+            echo "Downloaded gradle-wrapper.jar"
+          else
+            echo "gradle-wrapper.jar already exists"
+          fi
+      
+      # gradle-wrapper.properties 확인 및 수정
+      - name: Verify Gradle version in wrapper properties
+        run: |
+          echo "Current gradle-wrapper.properties:"
+          cat gradle/wrapper/gradle-wrapper.properties || echo "File not found"
       
       # 실행 권한 부여
       - name: Make gradlew executable
@@ -50,8 +62,9 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          key: ${{ runner.os }}-gradle-9.2-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
+            ${{ runner.os }}-gradle-9.2-
             ${{ runner.os }}-gradle-
       
       - name: Build Debug APK
