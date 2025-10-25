@@ -30,16 +30,14 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '17'
+          cache: 'gradle'
       
-      # Gradle 직접 설치 (Wrapper 없이)
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
-        with:
-          gradle-version: 8.1
-      
-      # Gradle Wrapper 생성
-      - name: Generate Gradle Wrapper
-        run: gradle wrapper
+      # gradlew 파일 존재 확인
+      - name: Verify gradlew exists
+        run: |
+          echo "Checking for gradlew file..."
+          ls -la gradlew || echo "gradlew not found"
+          ls -la gradlew.bat || echo "gradlew.bat not found"
       
       # 실행 권한 부여
       - name: Make gradlew executable
