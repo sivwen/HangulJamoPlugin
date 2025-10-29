@@ -1,8 +1,8 @@
-# FlorisBoard 한글 자모 플러그인
+~~# FlorisBoard 한글 자모 플러그인~~
 
-[![Build APK](https://github.com/sivwen/HangulJamoPlugin/actions/workflows/build-apk.yml/badge.svg)](https://github.com/sivwen/HangulJamoPlugin/actions/workflows/build-apk.yml)
+~~[![Build APK](https://github.com/sivwen/HangulJamoPlugin/actions/workflows/build-apk.yml/badge.svg)](https://github.com/sivwen/HangulJamoPlugin/actions/workflows/build-apk.yml)~~
 
-FlorisBoard 키보드에서 한글을 자모(ㄱ, ㅏ, ㅇ) 단위로 삭제할 수 있는 독립 플러그인입니다.
+<del>FlorisBoard 키보드에서 한글을 자모(ㄱ, ㅏ, ㅇ) 단위로 삭제할 수 있는 독립 플러그인입니다.
 
 ## ✨ 기능
 
@@ -95,4 +95,4 @@ Apache License 2.0
 ## 🔗 관련 링크
 
 - [FlorisBoard GitHub](https://github.com/florisboard/florisboard)
-- [한글 유니코드 명세](https://www.unicode.org/charts/PDF/UAC00.pdf)
+- [한글 유니코드 명세](https://www.unicode.org/charts/PDF/UAC00.pdf)</del>
