@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
-    id 'kotlin-android'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.compose.compiler' version '1.6.0' // 반드시 추가! (공식 Compose Compiler 버전)
 }
 
 android {
@@ -21,7 +22,7 @@ android {
     }
     
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.3"
+        kotlinCompilerExtensionVersion = "1.6.0" // Compose Compiler 플러그인 버전과 맞춰주세요
     }
     
     buildTypes {
