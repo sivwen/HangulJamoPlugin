@@ -21,7 +21,7 @@ android {
   }
 
   composeOptions {
-    kotlinCompilerExtensionVersion "1.5.3" // 또는 사용 중인 Compose 버전과 맞춰주세요 (최신 1.5.x~1.6.x도 1.9.x에서 지원)
+    kotlinCompilerExtensionVersion "1.5.10" // 또는 사용 중인 Compose 버전과 맞춰주세요 (최신 1.5.x~1.6.x도 1.9.x에서 지원)
   }
 
   buildTypes {
@@ -53,7 +53,7 @@ dependencies {
   implementation 'androidx.compose.material3:material3'
   implementation 'androidx.compose.ui:ui-tooling-preview'
   implementation 'androidx.activity:activity-compose:1.9.3'
-  implementation "androidx.compose.compiler:compiler:1.5.3" // 반드시 dependencies에서 추가!
+  implementation "androidx.compose.compiler:compiler:1.5.10" // 반드시 dependencies에서 추가!
 
   debugImplementation 'androidx.compose.ui:ui-tooling'
 }
