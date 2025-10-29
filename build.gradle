@@ -1,18 +1,13 @@
-plugins {
-    id 'com.android.application' version '8.7.3'
-    id 'org.jetbrains.kotlin.android' version '2.1.0'
-    id 'org.jetbrains.kotlin.compose.compiler' version '1.6.0'
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.7.3'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.0'
+    }
 }
-
-repositories {
-    google()
-    mavenCentral()
-}
-
-android {
-    // 기존 설정 (compileSdkVersion, defaultConfig 등) 필요시 추가
-}
-
 task clean(type: Delete) {
     delete rootProject.layout.buildDirectory
 }
