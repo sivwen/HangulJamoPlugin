@@ -31,20 +31,7 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
           cache: 'gradle'
-      
-      # gradle-wrapper.jar 다운로드 (Gradle 9.1.0)
-      - name: Download gradle-wrapper.jar if missing
-        run: |
-          if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
-            echo "gradle-wrapper.jar is missing, downloading for Gradle 9.1.0..."
-            mkdir -p gradle/wrapper
-            curl -L https://raw.githubusercontent.com/gradle/gradle/v9.1.0/gradle/wrapper/gradle-wrapper.jar \
-              -o gradle/wrapper/gradle-wrapper.jar
-            echo "Downloaded gradle-wrapper.jar"
-          else
-            echo "gradle-wrapper.jar already exists"
-          fi
-      
+          
       # 실행 권한 부여
       - name: Make gradlew executable
         run: chmod +x gradlew
