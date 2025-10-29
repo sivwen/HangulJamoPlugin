@@ -3,7 +3,7 @@
 
     <application
         android:label="FlorisBoard 한글 자모 플러그인"
-        android:icon="@mipmap-anydpi-v26/ic_launcher.png"
+        android:icon="@mipmap/ic_launcher"
         android:theme="@style/Theme.AppCompat.Light">
         
         <!-- ContentProvider로 플러그인 노출 -->
